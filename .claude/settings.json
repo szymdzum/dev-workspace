@@ -3,18 +3,12 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|MultiEdit|Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/szymondzumak/.claude/hooks/validate-code.sh",
-            "timeout": 5,
-            "continueOnFailure": true,
-            "env": {
-              "ENABLE_SECRET_CHECK": "1",
-              "ENABLE_COMPLEXITY_CHECK": "0",
-              "ENABLE_TODO_TRACKING": "1"
-            }
+            "command": "node $CLAUDE_PROJECT_DIR/.claude/dist/hooks/index.js",
+            "timeout": 10
           }
         ]
       }

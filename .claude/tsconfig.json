@@ -5,7 +5,7 @@
     "target": "es2020",
     "lib": ["es2020", "dom"],
     "outDir": "./dist",
-    "rootDir": "./hooks",
+    "rootDir": "./",
     "declaration": false,
     "strict": true,
     "esModuleInterop": true,
