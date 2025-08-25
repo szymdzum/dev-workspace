@@ -1,5 +1,4 @@
 {
-  "$schema": "../schemas/debug-config.schema.json",
   "version": "1.0.0",
   "description": "Debug and environment configuration for easy troubleshooting",
   

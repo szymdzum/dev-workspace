@@ -1,5 +1,4 @@
 {
-  "$schema": "../schemas/project-config.schema.json",
   "version": "1.0.0",
   "description": "Project-specific configuration for Claude Code",
   
