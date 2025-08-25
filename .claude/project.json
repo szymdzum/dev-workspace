@@ -1,0 +1,37 @@
+{
+  "name": "claude",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": ".claude",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": ".claude/dist",
+        "main": ".claude/hooks/index.ts",
+        "tsConfig": ".claude/tsconfig.json"
+      }
+    },
+    "execute": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "claude:build",
+        "watch": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [".claude/**/*.{ts,js}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/.claude"],
+      "options": {
+        "jestConfig": ".claude/jest.config.ts"
+      }
+    }
+  }
+}

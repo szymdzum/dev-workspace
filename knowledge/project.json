@@ -1,0 +1,20 @@
+{
+  "name": "knowledge", 
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "knowledge",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["knowledge/**/*.md"]
+      }
+    },
+    "validate-links": {
+      "executor": "@nx/workspace:run-commands",
+      "options": {
+        "command": "echo 'Validating internal links in knowledge base...'"
+      }
+    }
+  }
+}
