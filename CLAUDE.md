@@ -1,23 +1,42 @@
-## Directory Structure
+## Unified Workspace Structure
 
 ```
-~/Developer/
- ├── .ai/                # AI-specific only
- ├── Knowledge/          # Obsidian vault
- ├── Projects/           # Active projects
+~/Developer/                 # Single unified workspace
+├── .claude/                # Claude configuration & TypeScript hooks
+│   ├── hooks/              # Intelligent automation system
+│   ├── runtime/            # Session data & analytics  
+│   └── contexts/           # Context files
+├── apps/                   # All applications
+├── libs/                   # Shared libraries & components
+├── knowledge/              # Obsidian vault & documentation
+└── .git/                   # Single repository for everything
 ```
 
+## Workspace Features
 
-# High-level orchestration rules
-- Primary goal: route tasks to the smallest specialized subagent capable of completing the task efficiently while minimizing unnecessary tool calls.
+✅ **Unified Development** - Everything in one place, one git repo  
+✅ **TypeScript Hooks** - Intelligent automation with full type safety  
+✅ **Nx Integration** - `nx run claude:build`, `nx affected:test`  
+✅ **Session Analytics** - Track productivity with `.claude/scripts/`  
+✅ **Clean Organization** - Runtime data separated from core config  
 
-- Always include these metadata fields when delegating: task_id, estimated_complexity
-(low/med/high), required_tools, success_criteria.
+## Key Commands
 
-# Conditional Agent Delegation (decision rules)
-1. Language / Filetype driven:
-- If task targets .py / python code → route to Python subagent.
-- If task targets .tsx/.jsx/.html/.css → route to Frontend subagent.
+```bash
+nx run claude:build        # Compile TypeScript hooks
+.claude/scripts/analyze-sessions.sh  # Check session insights
+nx show projects            # See all projects (apps, libs, claude, knowledge)
+```
 
-## Import Additional Context
-@.ai/.claude/README.md
+## Hook System
+
+The TypeScript-based hook system provides:
+- **Security validation** - Prevents hardcoded secrets
+- **Auto-organization** - Manages imports, triggers type generation  
+- **Safety checks** - Blocks dangerous bash commands
+- **Full type safety** - IntelliSense support for hook development
+
+## Context Loading
+- All contexts now loaded from `.claude/contexts/`
+- Session data preserved in `.claude/runtime/` for analysis
+- Clean separation of config vs runtime data

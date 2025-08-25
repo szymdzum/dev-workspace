@@ -1,59 +1,69 @@
-# Developer Hub Context Router
+# Unified Developer Workspace 🚀
 
-
-🚀 Quick Commands
+## Quick Commands
 Most Used (because let's be honest):
 
-nx serve - Start whatever you're in
-nx affected:test - Test what you broke
-git diff HEAD~ - WTF did I just do?
+```bash
+nx serve [app]           # Start whatever you're working on
+nx affected:test         # Test what you broke
+nx run claude:build     # Compile TypeScript hooks
+git diff HEAD~          # WTF did I just do?
+.claude/scripts/analyze-sessions.sh  # Check your productivity
+```
 
 Smart Shortcuts:
+- `/comp [name]` - Generate component where you are
+- `/fix-imports` - Because imports are always messed up
+- `/find [thing]` - Find that thing you swear exists
 
-/comp [name] - Generate component where you are
-/fix-imports - Because imports are always fucked
-/find [thing] - Find that thing you swear exists
-
-## 🏗️ Workspace Architecture
+## 🏗️ Unified Workspace Architecture
 
 ```
-~/Developer/
-├── .ai/             # `cd ~/Developer/.ai` AI configurations
-│   ├── .claude/     # Claude settings
-├── Library/         # `cd ~/Developer/Library/` Nx monorepo
-│   ├── apps/        # Applications
-│   └── libs/        # Shared libraries
-├── Knowledge/       # `cd ~/Developer/Knowledge`
-│   ├── Projects/    # Project documentation
-│   └── Scripts/     # Automation scripts
-└── README.md        # Workspace documentation
+~/Developer/                 # THE unified workspace
+├── .claude/                # Claude configuration
+│   ├── hooks/              # TypeScript hook system  
+│   ├── runtime/            # Session data (ignored in git)
+│   ├── cache/              # Generated files (ignored in git)
+│   └── contexts/           # Context files
+├── apps/                   # Applications
+├── libs/                   # Shared libraries
+├── knowledge/              # Obsidian vault + docs
+├── nx.json                 # Nx orchestration
+└── .git/                   # Single repository
 ```
 
 ## 🎯 Quick Navigation
 
 ```bash
-cd ~/Developer/.ai
-cd ~/Developer/Library/apps    # Applications
-cd ~/Developer/Library/libs    # Libraries
-cd ~/Developer/Knowledge       # Documentation
+cd ~/Developer              # Always start here
+ls apps/                    # Your applications
+ls libs/                    # Shared libraries  
+ls knowledge/               # Your notes & docs
+ls .claude/hooks/           # TypeScript hooks
 ```
 
-### DevOps
-- **Monorepo**: Nx
+### DevOps Stack
+- **Monorepo**: Nx (unified workspace management)
 - **Package Manager**: pnpm
-- **Version Control**: Git
+- **Version Control**: Git (single repository)
+- **Hooks**: TypeScript-based Claude automation
 - **CI/CD**: GitHub Actions
 
 ## 📋 Nx Commands Reference
 
 ```bash
 # Development
-nx serve [app]          # Start dev server
-nx build [app]          # Build for production
-nx test [project]       # Run tests
-nx lint [project]       # Run linting
-nx affected:test        # Test affected projects
-nx affected:build       # Build affected projects
+nx serve [app]              # Start dev server
+nx build [app]              # Build for production
+nx test [project]           # Run tests
+nx lint [project]           # Run linting
+nx affected:test            # Test affected projects
+nx affected:build           # Build affected projects
+
+# Claude Integration
+nx run claude:build        # Compile TypeScript hooks
+nx run claude:test         # Test hook system
+nx show projects            # See all projects (including .claude)
 
 # Generation
 nx g @nx/react:lib [name]       # New library
@@ -101,16 +111,45 @@ Last commit: !git log -1 --oneline 2>/dev/null || echo "no commits"||
 - `@contexts/serena-ast-powers.md` - TypeScript AST intelligence via Serena
 - `@shared/contexts/conventions.md` - Coding standards
 
+## 🔧 Claude Hooks System
+
+TypeScript-based automation that runs on:
+- `Write|Edit|MultiEdit|Bash` operations
+- **Security Handler**: Blocks hardcoded secrets
+- **TypeScript Handler**: Auto-organizes imports, triggers type generation
+- **Bash Handler**: Prevents dangerous commands
+
+```bash
+# Edit hooks
+code .claude/hooks/handlers/
+
+# Rebuild after changes
+nx run claude:build
+
+# Debug hooks
+echo '{"tool_name":"Write","tool_input":{"file_path":"test.ts"}}' | node .claude/cache/dist/hooks/index.js
+```
+
+## 📊 Session Analytics
+
+Track your productivity:
+
+```bash
+.claude/scripts/analyze-sessions.sh     # Quick stats
+npx tsx .claude/scripts/analyze-sessions.ts  # Detailed analysis
+```
+
 ## 💡 Tips
 
-1. Always run Claude from `~/Developer` for consistent context
-2. Update this file with project-specific information
-3. Use context modules for detailed documentation
-4. Commit changes to git regularly
+1. **Always run Claude from `~/Developer`** - Single workspace context
+2. **Use TypeScript hooks** - Type-safe automation with IntelliSense
+3. **Analyze your sessions** - Track productivity and common patterns
+4. **One git repo** - Everything versioned together
+5. **Runtime data preserved** - Rich session history for analysis
 
-Contexts loaded: !find .ai/.claude/contexts -name "*.md" 2>/dev/null | wc -l || echo "0"
-Approximate tokens: !find .ai/.claude -name "*.md" -exec cat {} \; 2>/dev/null | wc -w || echo "unknown"
+Contexts: !find .claude/contexts -name "*.md" 2>/dev/null | wc -l || echo "0"
+Sessions: !find .claude/runtime/projects -name "*.jsonl" 2>/dev/null | wc -l || echo "0"
 
 ---
 
-*Pro tip: Edit this file with `claude-edit` alias*
+🎉 **Unified Workspace Active** - Everything you need in one place!
