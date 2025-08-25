@@ -4,7 +4,7 @@
     "module": "commonjs",
     "target": "es2020",
     "lib": ["es2020", "dom"],
-    "outDir": "./dist",
+    "outDir": "./cache/dist",
     "rootDir": "./",
     "declaration": false,
     "strict": true,
@@ -18,6 +18,6 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "cache"
   ]
 }

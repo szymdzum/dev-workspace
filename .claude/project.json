@@ -8,7 +8,7 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": ".claude/dist",
+        "outputPath": ".claude/cache/dist",
         "main": ".claude/hooks/index.ts",
         "tsConfig": ".claude/tsconfig.json"
       }

@@ -56,10 +56,8 @@ Thumbs.db
 
 # Claude specific
 .claude/cache/
-.claude/logs/
+.claude/runtime/
 .claude/*.bak
-.claude/shell-snapshots/
-.claude/statsig/
 
 # Obsidian
 knowledge/.obsidian/workspace*
