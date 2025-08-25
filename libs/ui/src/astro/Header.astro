@@ -1,0 +1,41 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<header class="header">
+  <div class="container">
+    <h1 class="title">{title}</h1>
+    {subtitle && <p class="subtitle">{subtitle}</p>}
+  </div>
+</header>
+
+<style>
+  .header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .subtitle {
+    font-size: 1.25rem;
+    margin: 0.5rem 0 0 0;
+    opacity: 0.9;
+  }
+</style>

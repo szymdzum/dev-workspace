@@ -1,0 +1,159 @@
+{
+  "$id": "file://.claude/schemas/project-config.schema.json",
+  "title": "Claude Code Project Configuration Schema",
+  "description": "Schema for Claude Code project-specific configuration",
+  "type": "object",
+  
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to this schema file"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the configuration"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this project"
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name"
+        },
+        "type": {
+          "type": "string",
+          "description": "Project type or category"
+        },
+        "description": {
+          "type": "string",
+          "description": "Project description"
+        },
+        "mainBranch": {
+          "type": "string",
+          "default": "main",
+          "description": "Main git branch name"
+        },
+        "language": {
+          "type": "string",
+          "description": "Primary programming language"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Primary framework or platform"
+        }
+      },
+      "required": ["name", "type"]
+    },
+    "ignore": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Directory paths to ignore"
+        },
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File patterns to ignore (glob/regex)"
+        }
+      }
+    },
+    "fileTypes": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File extensions considered code files"
+        },
+        "config": {
+          "type": "array", 
+          "items": {
+            "type": "string"
+          },
+          "description": "File extensions for configuration files"
+        },
+        "docs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File extensions for documentation"
+        },
+        "ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File extensions to always ignore"
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "maxFileSize": {
+          "type": "string",
+          "pattern": "^\\d+(B|KB|MB|GB)$",
+          "description": "Maximum file size (e.g., '1MB')"
+        },
+        "allowedExtensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Allowed file extensions"
+        },
+        "requireHeader": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "File types requiring header/shebang"
+        },
+        "enforceLineEndings": {
+          "type": "string",
+          "enum": ["lf", "crlf", "auto"],
+          "description": "Enforce specific line endings"
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "properties": {
+        "formatter": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z]+$": {
+              "type": "string"
+            }
+          },
+          "description": "Formatting commands by file type"
+        },
+        "linter": {
+          "type": "object",
+          "patternProperties": {
+            "^[a-z]+$": {
+              "type": "string"
+            }
+          },
+          "description": "Linting commands by file type"
+        }
+      }
+    }
+  },
+  
+  "required": ["version", "project"]
+}

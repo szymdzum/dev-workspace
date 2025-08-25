@@ -1,0 +1,12 @@
+{
+  "extends": ["astro/tsconfigs/strict", "../../tsconfig.base.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@library/ui/*": ["../../libs/ui/src/*"],
+      "@library/ui": ["../../libs/ui/src/index.ts"]
+    }
+  },
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
+}

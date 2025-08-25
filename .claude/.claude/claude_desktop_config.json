@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/szymondzumak/Developer"]
+    },
+    "serena": {
+      "command": "/Users/szymondzumak/.pyenv/versions/3.11.8/bin/python",
+      "args": [
+        "-m",
+        "serena",
+        "start-mcp-server",
+        "--transport", "stdio",
+        "--context", "general",
+        "--project", "/Users/szymondzumak/Developer/Library"
+      ]
+    }
+  }
+}

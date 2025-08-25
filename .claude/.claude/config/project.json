@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/project-config.schema.json",
+  "version": "1.0.0",
+  "description": "Project-specific configuration for Claude Code",
+  
+  "project": {
+    "name": "ai claude",
+    "type": "claude config lib",
+    "description": "AI configuration and hook management system",
+    "mainBranch": "main",
+    "language": "shell",
+    "framework": "claude-hooks"
+  },
+  
+  "ignore": {
+    "paths": [
+      "node_modules",
+      ".git", 
+      "dist",
+      "build",
+      ".cache",
+      "logs"
+    ],
+    "patterns": [
+      "*.log",
+      "*.tmp", 
+      ".DS_Store",
+      "*.backup.*",
+      ".env.local"
+    ]
+  },
+  
+  "fileTypes": {
+    "code": ["sh", "bash", "py", "js", "ts", "jsx", "tsx"],
+    "config": ["json", "yaml", "yml", "toml"],
+    "docs": ["md", "txt", "rst"],
+    "ignore": ["log", "tmp", "cache", "lock"]
+  },
+  
+  "validation": {
+    "maxFileSize": "1MB",
+    "allowedExtensions": ["sh", "json", "md", "py", "js", "ts"],
+    "requireHeader": ["sh", "py"],
+    "enforceLineEndings": "lf"
+  },
+  
+  "tools": {
+    "formatter": {
+      "shell": "shfmt -i 2 -w",
+      "json": "jq . -M",
+      "markdown": "prettier --write --prose-wrap=preserve"
+    },
+    "linter": {
+      "shell": "shellcheck",
+      "json": "jq . -e",
+      "markdown": "markdownlint"
+    }
+  }
+}
