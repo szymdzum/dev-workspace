@@ -38,7 +38,7 @@ export interface HookInput {
   hook_event_name: HookEvent;
   tool_name?: ToolName;
   tool_input?: ToolInput;
-  tool_response?: any;
+  tool_response?: unknown;
 }
 
 export interface HandlerResult {

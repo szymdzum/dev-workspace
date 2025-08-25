@@ -8,7 +8,7 @@ interface SessionEntry {
   summary?: string;
   message?: {
     role: string;
-    content: string | any[];
+    content: string | unknown[];
   };
   timestamp?: string;
   uuid?: string;
@@ -109,7 +109,7 @@ class SessionAnalyzer {
                 this.extractTopics(entry.message.content, topics);
               }
             }
-          } catch (e) {
+          } catch {
             // Skip malformed lines
           }
         }
@@ -142,7 +142,7 @@ class SessionAnalyzer {
         
         totalTasks += todos.length;
         completedTasks += todos.filter(t => t.status === 'completed').length;
-      } catch (e) {
+      } catch {
         // Skip malformed files
       }
     }

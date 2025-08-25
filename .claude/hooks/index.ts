@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import { HookInput } from './types';
+import { HookInput, BaseHandler } from './types';
 import { defaultConfig } from './config';
 import { SecurityHandler } from './handlers/security.handler';
 import { TypeScriptHandler } from './handlers/typescript.handler';
 import { BashHandler } from './handlers/bash.handler';
 
-const handlers: Record<string, any> = {
+const handlers: Record<string, BaseHandler> = {
   'security': new SecurityHandler(),
   'typescript': new TypeScriptHandler(),
   'bash': new BashHandler(),

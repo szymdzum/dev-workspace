@@ -17,7 +17,7 @@ export class TypeScriptHandler extends BaseHandler {
             cwd: input.cwd,
             stdio: 'pipe'
           });
-        } catch (e) {
+        } catch {
           // Non-fatal, just warn
           return this.warn('Could not organize imports');
         }
@@ -31,7 +31,7 @@ export class TypeScriptHandler extends BaseHandler {
             cwd: input.cwd,
             stdio: 'inherit'
           });
-        } catch (e) {
+        } catch {
           return this.warn('Type checking failed - please review changes');
         }
       }
