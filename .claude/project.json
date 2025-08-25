@@ -11,6 +11,23 @@
         "outputPath": ".claude/cache/dist",
         "main": ".claude/hooks/index.ts",
         "tsConfig": ".claude/tsconfig.json"
+      },
+      "dependsOn": ["claude-hooks:build"]
+    },
+    "build-cli": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/.claude/cache/dist/cli"],
+      "options": {
+        "command": "cd .claude && npx vite build",
+        "cwd": "{workspaceRoot}"
+      },
+      "dependsOn": ["claude-hooks:build"]
+    },
+    "make-executable": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build-cli"],
+      "options": {
+        "command": "chmod +x .claude/cache/dist/cli/*.js"
       }
     },
     "execute": {

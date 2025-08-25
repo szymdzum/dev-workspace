@@ -47,5 +47,10 @@
         "staticStorybookTargetName": "static-storybook"
       }
     }
-  ]
+  ],
+  "release": {
+    "version": {
+      "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
+  }
 }

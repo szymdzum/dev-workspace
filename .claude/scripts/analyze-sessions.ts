@@ -174,7 +174,7 @@ class SessionAnalyzer {
 
   private printAnalysis(analysis: SessionAnalysis) {
     console.log('📊 Session Analysis Results');
-    console.log('=' * 50);
+    console.log('='.repeat(50));
     console.log(`📅 Time Range: ${analysis.timeRange.first.toLocaleDateString()} - ${analysis.timeRange.last.toLocaleDateString()}`);
     console.log(`💬 Total Sessions: ${analysis.totalSessions}`);
     console.log(`📝 Total Messages: ${analysis.totalMessages}`);

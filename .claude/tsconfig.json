@@ -18,6 +18,9 @@
   ],
   "exclude": [
     "node_modules",
-    "cache"
+    "cache",
+    "hooks/__tests__/**/*",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

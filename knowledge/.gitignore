@@ -1,0 +1,40 @@
+# Obsidian files
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/hotkeys.json
+.obsidian/graph.json
+.obsidian/canvas.json
+.obsidian/appearance.json
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Editor files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store?
+ehthumbs.db
+
+# Obsidian plugin data (keep plugin configs but not data)
+.obsidian/plugins/*/data.json
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/manifest.json
+.obsidian/plugins/*/styles.css
+
+# Keep but ignore workspace states
+.obsidian/workspace
+.obsidian/cache
+
+# Agent configurations (personal/sensitive)
+.ai/local/
+.ai/*.key
+.ai/personal.md
+.claude/

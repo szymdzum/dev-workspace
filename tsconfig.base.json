@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@claude-dev/hooks": ["libs/claude-hooks/src/index.ts"],
       "@library/ui": ["libs/ui/src/index.ts"]
     }
   },

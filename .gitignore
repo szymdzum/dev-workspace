@@ -64,4 +64,9 @@ knowledge/.obsidian/workspace*
 knowledge/.obsidian/cache/
 knowledge/.trash/
 
+# Private Knowledge folders
+knowledge/private/
+knowledge/personal/
+knowledge/secrets/
+
 storybook-static
