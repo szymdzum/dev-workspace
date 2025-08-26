@@ -20,7 +20,8 @@
       "outputs": ["{options.reportsDirectory}"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/libs/ui"
+        "reportsDirectory": "../../coverage/libs/ui",
+        "configFile": "vite.config.ts"
       },
       "configurations": {
         "ci": {
