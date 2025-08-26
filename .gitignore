@@ -70,3 +70,7 @@ knowledge/personal/
 knowledge/secrets/
 
 storybook-static
+# Ignore untracked Inbox directory
+@_Inbox/
+# Ignore Untitled markdown files
+Untitled*.md

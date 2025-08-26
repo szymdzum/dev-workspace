@@ -1,0 +1,92 @@
+# Aviator Configuration for dev-hub monorepo
+# Documentation: https://docs.aviator.co/
+version: 1
+
+# General configuration
+auto_merge:
+  enabled: true
+
+# Queue configuration for monorepo
+merge_queues:
+  - name: default
+    # Parallel queues based on affected projects
+    parallel_queues:
+      # UI library changes
+      - name: ui
+        trigger_on:
+          - libs/ui/**
+        required_checks:
+          - lint-ui
+          - test-ui
+          
+      # Playground app changes  
+      - name: playground
+        trigger_on:
+          - apps/playground/**
+        required_checks:
+          - lint-playground
+          - test-playground
+          - build-playground
+          
+      # Knowledge/docs changes
+      - name: knowledge
+        trigger_on:
+          - knowledge/**
+        required_checks:
+          - lint-knowledge
+          
+      # Root/config changes (affects everything)
+      - name: root
+        trigger_on:
+          - "*.json"
+          - "*.js"
+          - "*.ts"
+          - "*.yml"
+          - "*.yaml"
+          - ".github/**"
+        required_checks:
+          - lint
+          - test
+          - build
+
+# Batch configuration
+batching:
+  enabled: true
+  max_batch_size: 5
+  max_wait_time: 300 # 5 minutes
+
+# Auto-merge rules
+merge_rules:
+  # Dependabot PRs
+  - name: dependabot
+    conditions:
+      - author: dependabot[bot]
+      - title: "^(build\\(deps\\)|chore\\(deps\\))"
+      - check_passed: true
+    merge_method: squash
+
+  # Documentation updates
+  - name: docs
+    conditions:
+      - files_changed: ["knowledge/**", "*.md", "docs/**"]
+      - check_passed: true
+    merge_method: squash
+
+# Draft PR handling
+draft_prs:
+  ignore: true
+
+# Flaky test configuration  
+flaky_tests:
+  enabled: true
+  max_retries: 2
+  retry_delay: 30
+
+# Notifications
+notifications:
+  slack:
+    enabled: false # Configure if you have Slack integration
+  
+  github:
+    enabled: true
+    comment_on_failure: true

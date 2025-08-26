@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-08-26T06:58:05.512Z",
+  "nodeVersion": "v24.6.0",
+  "layers": [
+    {
+      "name": "nxMonorepo",
+      "issue": "NX Cloud configured but cache disabled - that's $ down the drain",
+      "fix": "Enable caching for all targets NOW",
+      "priority": 10,
+      "status": "🔥 CRITICAL"
+    },
+    {
+      "name": "contextBeast",
+      "issue": "Still in 'throwing spaghetti' phase",
+      "fix": "Ship Week 1 of your own damn plan",
+      "priority": 8,
+      "status": "🔥 CRITICAL"
+    },
+    {
+      "name": "apps",
+      "issue": "Cloudflare config exists but gathering dust",
+      "fix": "Actually deploy something this week",
+      "priority": 5,
+      "status": "⚠️ NEEDS ATTENTION"
+    },
+    {
+      "name": "packageManager",
+      "issue": "pnpm lockfile v9.0 - so bleeding edge it needs therapy",
+      "fix": "Add .npmrc with loglevel=warn to stop the chattiness",
+      "priority": 1,
+      "status": "✅ ACCEPTABLE"
+    },
+    {
+      "name": "libs",
+      "issue": "47-hour claude-hooks saga still haunts the codebase",
+      "fix": "It works, leave it alone, frame the documentation",
+      "priority": 0,
+      "status": "✅ ACCEPTABLE"
+    }
+  ],
+  "recommendations": [
+    "1. Enable NX caching RIGHT NOW (2 min fix, 10x speed)",
+    "2. Deploy SOMETHING to Cloudflare this week",
+    "3. Start Context Beast Week 1 (stop planning)",
+    "4. Clean up node_modules occasionally (pnpm store prune)",
+    "5. Never spend 47 hours on shell scripts again"
+  ],
+  "roast": "Node v24.6.0? Even the Node maintainers don't know what that does"
+}
