@@ -2,18 +2,14 @@
   "mcpServers": {
     "agent-roles": {
       "command": "node",
-      "args": [
-        "/Users/szymondzumak/Developer/tools/mcp-agent-roles/dist/server.js"
-      ],
+      "args": ["/Users/szymondzumak/Developer/tools/mcp-agent-roles/dist/server.js"],
       "env": {
         "NODE_ENV": "production"
       }
     },
     "nx-workspace": {
       "command": "node",
-      "args": [
-        "/Users/szymondzumak/Developer/tools/nx-mcp/dist/server.js"
-      ],
+      "args": ["/Users/szymondzumak/Developer/tools/nx-mcp/dist/server.js"],
       "env": {
         "NODE_ENV": "production"
       }

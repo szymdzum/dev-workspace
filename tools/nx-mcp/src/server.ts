@@ -4,9 +4,9 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
 import { exec } from 'child_process'
-import { promisify } from 'util'
-import * as path from 'path'
 import * as fs from 'fs/promises'
+import * as path from 'path'
+import { promisify } from 'util'
 
 const execAsync = promisify(exec)
 

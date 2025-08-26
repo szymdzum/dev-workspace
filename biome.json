@@ -8,9 +8,9 @@
   "files": {
     "maxSize": 1048576,
     "ignoreUnknown": false,
-    "ignore": [
+    "experimentalScannerIgnores": [
       "**/coverage/**",
-      "**/dist/**", 
+      "**/dist/**",
       "**/.nx/**",
       "**/node_modules/**",
       "**/*.min.js",

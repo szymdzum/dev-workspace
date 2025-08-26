@@ -11,12 +11,13 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
     // Safe access to localStorage and window with fallbacks for SSR/testing
     try {
       const savedTheme = typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null
-      const prefersDark = typeof window !== 'undefined' && window.matchMedia 
-        ? window.matchMedia('(prefers-color-scheme: dark)').matches 
-        : false
+      const prefersDark =
+        typeof window !== 'undefined' && window.matchMedia
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
 
       return savedTheme === 'dark' || (!savedTheme && prefersDark)
-    } catch (error) {
+    } catch (_error) {
       // Fallback for environments where localStorage or matchMedia are not available
       return false
     }
