@@ -21,6 +21,13 @@
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/libs/ui"
+      },
+      "configurations": {
+        "ci": {
+          "watch": false,
+          "bail": false,
+          "reporter": "verbose"
+        }
       }
     },
     "lint": {
