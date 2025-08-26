@@ -9,7 +9,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  PNPM_VERSION: 'latest'
+  PNPM_VERSION: '9.15.0'
 
 jobs:
   check-friday:
@@ -48,9 +48,11 @@ jobs:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
-          version: ${{ env.PNPM_VERSION }}
+          version: 9.15.0
+        env:
+          PNPM_REGISTRY: https://registry.npmmirror.com
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
