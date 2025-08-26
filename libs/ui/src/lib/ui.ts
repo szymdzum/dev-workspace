@@ -1,8 +1,9 @@
 export function ui(): string {
-  return 'ui';
+  return 'ui'
 }
 
 // Test our TypeScript handler
 export function newFunction(): string {
-  return 'test';
+  return 'test'
 }
+// Test change

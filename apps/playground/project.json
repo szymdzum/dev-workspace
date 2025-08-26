@@ -27,11 +27,19 @@
       },
       "dependsOn": ["build"]
     },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/playground"
+      }
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpm astro check",
-        "cwd": "apps/playground"
+        "command": "biome check --write .",
+        "cwd": "{projectRoot}"
       }
     }
   },

@@ -1,0 +1,36 @@
+name = "playground"
+compatibility_date = "2025-08-26"
+
+[env.production]
+name = "playground-production"
+routes = [
+  { pattern = "playground.yourdomain.com", zone_name = "yourdomain.com" }
+]
+
+[env.staging]
+name = "playground-staging"
+routes = [
+  { pattern = "playground-staging.yourdomain.com", zone_name = "yourdomain.com" }
+]
+
+# Build configuration
+[build]
+command = "pnpm build"
+cwd = ""
+watch_dir = "src"
+
+# Assets configuration
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# Environment variables (add your own)
+[vars]
+# NODE_ENV = "production"
+
+# Add your own environment-specific variables here
+# [env.production.vars]
+# API_URL = "https://api.yourdomain.com"
+
+# [env.staging.vars]
+# API_URL = "https://api-staging.yourdomain.com"

@@ -1,6 +1,7 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+
+import react from '@astrojs/react'
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
@@ -8,8 +9,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@library/ui': new URL('../../libs/ui/src', import.meta.url).pathname
-      }
-    }
-  }
-});
+        '@library/ui': new URL('../../libs/ui/src', import.meta.url).pathname,
+      },
+    },
+  },
+})

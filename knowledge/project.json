@@ -1,17 +1,18 @@
 {
-  "name": "knowledge", 
+  "name": "knowledge",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "knowledge",
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
+      "executor": "nx:run-commands",
       "options": {
-        "lintFilePatterns": ["knowledge/**/*.md"]
+        "command": "biome check --write .",
+        "cwd": "{projectRoot}"
       }
     },
     "validate-links": {
-      "executor": "@nx/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "echo 'Validating internal links in knowledge base...'"
       }

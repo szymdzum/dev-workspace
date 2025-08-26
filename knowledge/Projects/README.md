@@ -39,8 +39,8 @@ Every project README.md must include:
 ---
 type: project
 status: planning | active | testing | production | maintenance | archived
-created: YYYY-MM-DD
-modified: YYYY-MM-DD
+created: DD-MM-YYYY
+modified: DD-MM-YYYY
 tags: [project-type, technology-tags]
 aliases: [alternative-names]
 tech-stack: [languages, frameworks, tools]

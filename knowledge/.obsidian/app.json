@@ -1,1 +1,6 @@
-{}
+{
+  "spellcheck": false,
+  "propertiesInDocument": "hidden",
+  "showInlineTitle": false,
+  "alwaysUpdateLinks": true
+}

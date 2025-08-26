@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+coverage
+.nx
+*.min.js
+**/.nx/**
+**/node_modules/**
+**/dist/**
+**/build/**

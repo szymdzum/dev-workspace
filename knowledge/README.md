@@ -4,7 +4,6 @@ created: 2025-01-23
 tags: [knowledge-base, obsidian, documentation]
 version: "1.0"
 ---
-
 # 🧠 Knowledge Vault
 
 *Central knowledge management system for development work - optimized for AI assistance and cross-project learning.*
@@ -111,32 +110,6 @@ Idea/Note → Inbox → Process Daily/Weekly → File in Appropriate Location
 
 ### How AI Assistants Use This Vault
 
-#### Project Context
-Each project has a `CONTEXT.md` file that:
-- Explains project purpose and architecture
-- Lists current development guidelines  
-- Describes coding standards and patterns
-- Provides AI with necessary context
-
-This gets symlinked as `Claude.md` in actual project repos:
-```bash
-ln -sf ../../Knowledge/Projects/my-project/CONTEXT.md Claude.md
-```
-
-#### Cross-Project Knowledge
-AI can reference:
-- **Patterns**: Reusable architectural decisions
-- **Snippets**: Proven code solutions
-- **Decisions**: Historical context for choices
-- **Standards**: Team conventions and practices
-
-#### Search & Discovery
-With proper linking and tagging, AI can:
-- Find relevant examples from past projects
-- Suggest patterns used in similar contexts
-- Reference architectural decisions
-- Recommend learning resources
-
 ## Organization Principles
 
 ### Frontmatter Standards
@@ -145,8 +118,8 @@ All documents include metadata:
 ---
 type: project | area | resource | daily | template
 status: active | completed | archived
-created: YYYY-MM-DD
-modified: YYYY-MM-DD
+created: DD-MM-YYYY
+modified: DD-MM-YYYY
 tags: [relevant, tags]
 ---
 ```
@@ -231,9 +204,9 @@ SORT created DESC
 
 ### Templates with Variables
 Using Templater plugin:
-- `{{date:YYYY-MM-DD}}` - Current date
+- `{{date:DD-MM-YYYY}}` - Current date
 - `{{title}}` - Note title
-- `{{date-1d:YYYY-MM-DD}}` - Yesterday's date
+- `{{date-1d:DD-MM-YYYY}}` - Yesterday's date
 
 ### Query Examples (Dataview)
 ```dataview

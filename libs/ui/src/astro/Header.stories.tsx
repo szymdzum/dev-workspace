@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react'
 
 // Since this is an Astro component, we can't render it directly in Storybook
 // But we can document it and provide usage examples
@@ -45,40 +44,51 @@ import Header from '@library/ui/astro/Header.astro';
 ## Implementation
 
 The component uses scoped Astro styles and is designed to be flexible. You can test it in the playground app at http://localhost:4321
-        `
-      }
-    }
+        `,
+      },
+    },
   },
   tags: ['autodocs'],
-};
+}
 
-export default meta;
+export default meta
 
 // We can't actually render Astro components in Storybook, so we provide documentation only
 export const Documentation: StoryObj = {
   render: () => {
     return (
-      <div style={{ 
-        padding: '2rem', 
-        border: '2px dashed #ccc', 
-        borderRadius: '8px',
-        textAlign: 'center',
-        backgroundColor: '#f9f9f9'
-      }}>
+      <div
+        style={{
+          padding: '2rem',
+          border: '2px dashed #ccc',
+          borderRadius: '8px',
+          textAlign: 'center',
+          backgroundColor: '#f9f9f9',
+        }}
+      >
         <h2>🚀 Astro Component</h2>
         <p>This is an Astro component that can't be rendered directly in Storybook.</p>
-        <p><strong>To see it in action:</strong></p>
-        <p>Visit the playground at <a href="http://localhost:4321" target="_blank" rel="noopener">http://localhost:4321</a></p>
+        <p>
+          <strong>To see it in action:</strong>
+        </p>
+        <p>
+          Visit the playground at{' '}
+          <a href="http://localhost:4321" target="_blank" rel="noopener">
+            http://localhost:4321
+          </a>
+        </p>
         <br />
-        <code style={{ 
-          backgroundColor: '#fff', 
-          padding: '0.5rem', 
-          borderRadius: '4px',
-          display: 'inline-block'
-        }}>
+        <code
+          style={{
+            backgroundColor: '#fff',
+            padding: '0.5rem',
+            borderRadius: '4px',
+            display: 'inline-block',
+          }}
+        >
           import Header from '@library/ui/astro/Header.astro';
         </code>
       </div>
-    );
+    )
   },
-};
+}

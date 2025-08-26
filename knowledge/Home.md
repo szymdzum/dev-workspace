@@ -1,27 +1,29 @@
 ---
 type: dashboard
-created: 2025-01-23
-modified: 2025-01-23
-tags: [dashboard, home, overview]
 cssclass: dashboard
 ---
-
 # 🏠 Knowledge Hub Dashboard
 
 *Welcome to your AI-powered development knowledge center*
 
 ---
 
-## 📊 Vault Overview
 
-| Metric | Count | Status |
-|--------|-------|---------|
-| 📁 Active Projects | `$= dv.pages('"Projects"').where(p => p.status == 'active').length` | 🟢 Healthy |
-| 📚 Learning Resources | `$= dv.pages('"Resources/Patterns"').length` | 📈 Growing |
-| 💡 Code Snippets | `$= dv.pages('"Resources/Snippets"').length` | 🔧 Ready |
-| 📥 Inbox Items | `$= dv.pages('"Inbox"').length - 1` | `$= dv.pages('"Inbox"').length <= 5 ? "🟢 Clean" : dv.pages('"Inbox"').length <= 20 ? "🟡 Review" : "🔴 Process"` |
+> [!tip] Todos
+> - [ ] Format date format globaly
+> - [ ] 3 column view for recent stuff
+
+
 
 ---
+
+### 🔥 Hot Snippets
+```dataview
+TABLE language, difficulty, use-cases
+FROM "Resources/Snippets" 
+SORT created DESC
+LIMIT 3
+```
 
 ## 🎯 Active Projects
 
@@ -32,7 +34,7 @@ WHERE status = "active" AND file.name != "README"
 SORT created DESC
 ```
 
-*No active projects yet? [Create your first project →](Templates/project.md)*
+*No active projects yet? [Create your first project →](project.md)*
 
 ---
 
@@ -71,26 +73,19 @@ SORT file.ctime DESC
 LIMIT 7
 ```
 
-*[Open today's note →](<Daily/{{date:YYYY-MM-DD}}.md>)*
+*[Open today's note →](<Daily/{{date:DD-MM-YYYY}}.md>)*
 
-### 🔥 Hot Snippets
-```dataview
-TABLE language, difficulty, use-cases
-FROM "Resources/Snippets" 
-SORT created DESC
-LIMIT 3
-```
 
 ---
 
 ## ⚡ Quick Actions
 
 ### 📋 Templates
-- 📄 [New Project](Templates/project.md)
-- 📝 [Daily Note](Templates/daily.md) 
-- 🔧 [Code Snippet](Templates/snippet.md)
-- 🎯 [Decision Record](Templates/decision.md)
-- 🤖 [AI Context](Templates/context.md)
+- 📄 [New Project](project.md)
+- 📝 [Daily Note](daily.md) 
+- 🔧 [Code Snippet](snippet.md)
+- 🎯 [Decision Record](decision.md)
+- 🤖 [AI Context](context.md)
 
 ### 📁 Quick Navigation  
 - 💼 [Development Area](Areas/Development.md)
@@ -127,26 +122,8 @@ LIMIT 3
 - **Template Usage**: ✅ Consistent  
 - **Inbox Processing**: `$= dv.pages('"Inbox"').length <= 5 ? "🟢 Excellent" : dv.pages('"Inbox"').length <= 20 ? "🟡 Good" : "🔴 Needs Attention"`
 
----
-
-## 🎨 Dashboard Features
-
-*This dashboard updates automatically as you add content to your Knowledge vault. All data is live and reflects your current state.*
-
-### Available Features:
-- 🔄 **Auto-updating** project and learning progress
-- 📊 **Live metrics** for vault health
-- ⚡ **Quick actions** for common workflows  
-- 🎯 **Focus indicators** for what needs attention
-- 🏷️ **Smart tagging** for easy discovery
-
-### Quick Tips:
-- Click any link to navigate instantly
-- Dataview queries update automatically
-- Use tags to filter and find content
-- Check inbox regularly to stay organized
 
 ---
 
 *Built with ❤️ for AI-assisted development*  
-*Last updated: `$= dv.date("now").toFormat("yyyy-MM-dd HH:mm")`*
+*Last updated: `$= dv.date("now").toFormat("DD-MM-YYYY HH:mm")`*
