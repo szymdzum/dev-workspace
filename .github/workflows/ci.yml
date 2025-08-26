@@ -52,8 +52,11 @@ jobs:
       - name: Lint affected
         run: pnpm nx affected -t lint --parallel=3
       
-      - name: Test affected
-        run: pnpm nx affected -t test --parallel=3 --coverage
+      - name: Test Everything Else in Parallel
+        run: pnpm nx affected -t test --exclude=ui --parallel=3 --coverage
+      
+      - name: Test UI Alone Like The Diva It Is
+        run: pnpm nx affected -t test --projects=ui --coverage
       
       - name: Build affected
         run: pnpm nx affected -t build --parallel=3
