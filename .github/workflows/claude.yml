@@ -1,0 +1,106 @@
+name: Claude CI Integration
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+      - 'test/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read  # Required for Claude to read CI results on PRs
+  pull-requests: read
+  checks: read
+
+jobs:
+  claude-analysis:
+    runs-on: ubuntu-latest
+    name: Claude Code Analysis
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          
+      - name: 📥 Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: 🤖 Collect CI Context
+        id: ci-context
+        run: |
+          echo "branch=${{ github.head_ref || github.ref_name }}" >> $GITHUB_OUTPUT
+          echo "pr_number=${{ github.event.pull_request.number || '' }}" >> $GITHUB_OUTPUT
+          echo "commit=${{ github.sha }}" >> $GITHUB_OUTPUT
+          
+      - name: 📊 Generate Analysis Report
+        run: |
+          cat << EOF > claude-analysis.json
+          {
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "repository": "${{ github.repository }}",
+            "branch": "${{ steps.ci-context.outputs.branch }}",
+            "commit": "${{ steps.ci-context.outputs.commit }}",
+            "pr_number": "${{ steps.ci-context.outputs.pr_number }}",
+            "workflow_run": "${{ github.run_id }}",
+            "status": "ready_for_analysis"
+          }
+          EOF
+          
+      - name: 📝 Code Quality Check
+        run: |
+          echo "Running code quality checks for Claude analysis..."
+          pnpm lint || true
+          pnpm test --run || true
+          
+      - name: 🔍 Dependency Analysis
+        run: |
+          echo "Analyzing dependencies..."
+          pnpm list --depth=0 > dependencies.txt
+          pnpm audit --json > audit-report.json || true
+          
+      - name: 📈 Complexity Analysis
+        run: |
+          # Find complex files that might need refactoring
+          find . -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | \
+            grep -v node_modules | \
+            xargs -I {} sh -c 'echo "File: {}, Lines: $(wc -l < {})"' | \
+            sort -t':' -k3 -rn | \
+            head -20 > complexity-report.txt
+          
+      - name: 💾 Upload Analysis Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-analysis-${{ github.sha }}
+          path: |
+            claude-analysis.json
+            dependencies.txt
+            audit-report.json
+            complexity-report.txt
+          retention-days: 30
+          
+      - name: 💬 Post Analysis Summary
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "## 🤖 Claude Analysis Ready" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Analysis artifacts have been generated for review:" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch: ${{ steps.ci-context.outputs.branch }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit: ${{ steps.ci-context.outputs.commit }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Workflow: [Run #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Claude can now analyze the CI results and provide feedback." >> $GITHUB_STEP_SUMMARY
