@@ -1,0 +1,102 @@
+version: 2
+
+updates:
+  # Main package.json dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    groups:
+      production-dependencies:
+        patterns:
+          - "@modelcontextprotocol/*"
+          - "@nx/*"
+          - "astro"
+          - "react"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies:
+        patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier"
+          - "biome"
+          - "vitest"
+          - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Playground app dependencies
+  - package-ecosystem: "npm"
+    directory: "/apps/playground"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps(playground)"
+
+  # UI library dependencies
+  - package-ecosystem: "npm"
+    directory: "/libs/ui"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps(ui)"
+
+  # MCP Agent Roles dependencies
+  - package-ecosystem: "npm"
+    directory: "/tools/mcp-agent-roles"
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps(mcp-agent-roles)"
+
+  # NX MCP dependencies
+  - package-ecosystem: "npm"
+    directory: "/tools/nx-mcp"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps(nx-mcp)"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "monthly"
+      day: 1
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "szymondzumak"
+    commit-message:
+      prefix: "deps(actions)"

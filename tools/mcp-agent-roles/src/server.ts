@@ -112,7 +112,7 @@ class AgentRoleServer {
   }
 
   async saveThreadState(threadId: string, state: ThreadState): Promise<void> {
-    let allStates = {};
+    let allStates: Record<string, ThreadState> = {};
     try {
       const data = await fs.readFile(this.stateFile, 'utf8');
       allStates = JSON.parse(data);
@@ -434,12 +434,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         };
     }
   } catch (error) {
-    await roleManager.auditLog('error', { threadId, tool: name, error: error.message });
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    await roleManager.auditLog('error', { threadId, tool: name, error: errorMessage });
     
     return {
       content: [{
         type: 'text',
-        text: `Error: ${error.message}`
+        text: `Error: ${errorMessage}`
       }],
       isError: true
     };

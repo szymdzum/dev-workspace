@@ -153,7 +153,29 @@ importers:
         specifier: ^2.3.0
         version: 2.8.1
 
+  packages/shared-types:
+    dependencies:
+      typescript:
+        specifier: ^5.8.0
+        version: 5.8.3
+
   tools/mcp-agent-roles:
+    dependencies:
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.17.4
+        version: 1.17.4
+    devDependencies:
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.9
+      esbuild:
+        specifier: ^0.19.0
+        version: 0.19.12
+      typescript:
+        specifier: ^5.8.0
+        version: 5.8.3
+
+  tools/nx-mcp:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.17.4
