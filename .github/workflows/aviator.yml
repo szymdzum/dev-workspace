@@ -131,7 +131,7 @@ jobs:
           
       - name: 📊 Check package vulnerabilities
         run: |
-          npm audit --audit-level=high --production
+          pnpm audit --audit-level=high --prod
           
   # Merge queue status update
   aviator-status:

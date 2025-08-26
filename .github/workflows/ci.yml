@@ -56,7 +56,7 @@ jobs:
         run: pnpm nx affected -t test --exclude=ui --parallel=3 --coverage
       
       - name: Test UI Alone Like The Diva It Is
-        run: pnpm nx affected -t test --projects=ui --coverage
+        run: pnpm nx run ui:test --coverage
       
       - name: Build affected
         run: pnpm nx affected -t build --parallel=3
