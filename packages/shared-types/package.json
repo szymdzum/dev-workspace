@@ -1,0 +1,13 @@
+{
+  "name": "@dev-hub/shared-types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for the dev hub",
+  "main": "index.ts",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "mcp-agent-roles",
+  "version": "1.0.0",
+  "description": "MCP server for agent role management and cost optimization",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "esbuild src/server.ts --bundle --platform=node --target=node20 --outfile=dist/server.js --format=esm --external:@modelcontextprotocol/sdk",
+    "dev": "node dist/server.js",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.19.0",
+    "typescript": "^5.8.0"
+  }
+}
