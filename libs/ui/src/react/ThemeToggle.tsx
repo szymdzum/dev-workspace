@@ -6,18 +6,30 @@ export interface ThemeToggleProps {
 }
 
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
-  const [isDark, setIsDark] = useState(false)
+  // Initialize theme state synchronously to avoid race conditions
+  const [isDark, setIsDark] = useState(() => {
+    // Safe access to localStorage and window with fallbacks for SSR/testing
+    try {
+      const savedTheme = typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null
+      const prefersDark = typeof window !== 'undefined' && window.matchMedia 
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches 
+        : false
+
+      return savedTheme === 'dark' || (!savedTheme && prefersDark)
+    } catch (error) {
+      // Fallback for environments where localStorage or matchMedia are not available
+      return false
+    }
+  })
 
   useEffect(() => {
-    // Check for saved theme or default to light
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true)
+    // Apply the theme to the document only after component mounts
+    if (isDark) {
       document.documentElement.setAttribute('data-theme', 'dark')
+    } else {
+      document.documentElement.removeAttribute('data-theme')
     }
-  }, [])
+  }, [isDark])
 
   const toggleTheme = () => {
     const newTheme = !isDark

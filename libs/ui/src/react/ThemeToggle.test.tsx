@@ -13,10 +13,23 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 })
 
+// Mock document.documentElement for DOM manipulation
+const documentElementMock = {
+  setAttribute: vi.fn(),
+  removeAttribute: vi.fn(),
+}
+
+Object.defineProperty(document, 'documentElement', {
+  value: documentElementMock,
+  configurable: true,
+})
+
 describe('ThemeToggle', () => {
   beforeEach(() => {
     localStorageMock.getItem.mockClear()
     localStorageMock.setItem.mockClear()
+    documentElementMock.setAttribute.mockClear()
+    documentElementMock.removeAttribute.mockClear()
   })
 
   it('renders with default light theme', () => {
@@ -61,5 +74,29 @@ describe('ThemeToggle', () => {
 
     const button = screen.getByRole('button', { name: /toggle theme/i })
     expect(button).toHaveClass('custom-class')
+  })
+
+  it('applies theme to document element', () => {
+    localStorageMock.getItem.mockReturnValue('dark')
+
+    render(<ThemeToggle />)
+
+    // Should set data-theme attribute for dark theme
+    expect(documentElementMock.setAttribute).toHaveBeenCalledWith('data-theme', 'dark')
+  })
+
+  it('removes theme attribute when switching to light mode', () => {
+    localStorageMock.getItem.mockReturnValue('dark')
+
+    render(<ThemeToggle />)
+
+    const button = screen.getByRole('button', { name: /toggle theme/i })
+
+    // Click to toggle to light mode
+    fireEvent.click(button)
+
+    // Should remove data-theme attribute for light mode
+    expect(documentElementMock.removeAttribute).toHaveBeenCalledWith('data-theme')
+    expect(localStorageMock.setItem).toHaveBeenCalledWith('theme', 'light')
   })
 })
