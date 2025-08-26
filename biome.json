@@ -7,7 +7,15 @@
   },
   "files": {
     "maxSize": 1048576,
-    "ignoreUnknown": false
+    "ignoreUnknown": false,
+    "ignore": [
+      "**/coverage/**",
+      "**/dist/**", 
+      "**/.nx/**",
+      "**/node_modules/**",
+      "**/*.min.js",
+      "**/*.min.css"
+    ]
   },
   "formatter": {
     "enabled": true,
