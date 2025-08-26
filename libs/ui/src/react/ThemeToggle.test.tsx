@@ -1,5 +1,6 @@
-import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
+// biome-ignore lint/correctness/noUnusedImports: React is needed for JSX
+import React from 'react'
 import { ThemeToggle } from './ThemeToggle'
 
 // Mock localStorage
