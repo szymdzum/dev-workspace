@@ -5,3 +5,5 @@ describe('ui', () => {
     expect(ui()).toEqual('ui')
   })
 })
+
+// Force cache invalidation by adding comment

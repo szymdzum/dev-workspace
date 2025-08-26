@@ -22,16 +22,16 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist"],
       "inputs": ["production", "^production"]
     },
     "test": {
       "cache": true,
-      "inputs": ["default", "^production"]
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
     },
     "lint": {
       "cache": true,
-      "inputs": ["default"]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/biome.json"]
     },
     "typecheck": {
       "cache": true,
@@ -62,6 +62,14 @@
   "release": {
     "version": {
       "preVersionCommand": "pnpm dlx nx run-many -t build"
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "options": {
+        "batchMode": true,
+        "cacheableOperations": ["build", "test", "lint"]
+      }
     }
   }
 }

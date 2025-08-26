@@ -1,17 +1,19 @@
 name = "playground"
-compatibility_date = "2025-08-26"
+compatibility_date = "2024-08-26"
 
 [env.production]
 name = "playground-production"
-routes = [
-  { pattern = "playground.yourdomain.com", zone_name = "yourdomain.com" }
-]
+# Configure routes when you have a custom domain
+# routes = [
+#   { pattern = "playground.yourdomain.com", zone_name = "yourdomain.com" }
+# ]
 
 [env.staging]
 name = "playground-staging"
-routes = [
-  { pattern = "playground-staging.yourdomain.com", zone_name = "yourdomain.com" }
-]
+# Configure routes when you have a custom domain
+# routes = [
+#   { pattern = "playground-staging.yourdomain.com", zone_name = "yourdomain.com" }
+# ]
 
 # Build configuration
 [build]

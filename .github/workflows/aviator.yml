@@ -1,0 +1,169 @@
+# .github/workflows/aviator.yml - Create this or it's just vibes
+# Aviator Queue Integration - The bridge between chaos and order
+
+name: Aviator Queue
+on:
+  pull_request:
+    types: [labeled, synchronize, opened]  # When Aviator adds 'ready-to-merge' or PR is updated
+  push:
+    branches: [main]  # Also run on main branch updates
+
+jobs:
+  aviator-check:
+    if: contains(github.event.label.name, 'aviator') || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Don't let it run forever
+    
+    steps:
+      - name: 🛒 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for NX affected
+          
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          
+      - name: 🎯 Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          
+      - name: 🗂️ Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+            
+      - name: 🔧 Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      # The NX magic - only test what changed
+      - name: 🧪 Run affected tests
+        run: pnpm nx affected --target=test --base=origin/main
+        
+      - name: 🎨 Run affected lint
+        run: pnpm nx affected --target=lint --base=origin/main
+        
+      - name: 🏗️ Build affected projects
+        run: pnpm nx affected --target=build --base=origin/main
+        
+      # Context Beast integration check
+      - name: 🤖 Validate Context Beast changes
+        if: contains(github.event.pull_request.body, 'Context Beast') || contains(github.event.pull_request.title, 'beast-generated')
+        run: |
+          echo "🔍 Context Beast PR detected"
+          # Check if rate limiter would approve this PR
+          pnpm dlx tsx -e "
+            import { canCreatePR } from './.claude/agents/rate-limiter';
+            import { execSync } from 'child_process';
+            
+            const files = execSync('git diff --name-only origin/main HEAD | wc -l', {encoding: 'utf8'});
+            const lines = execSync('git diff --shortstat origin/main HEAD | grep -oE \"[0-9]+ insertions?|[0-9]+ deletions?\" | head -1 | grep -oE \"[0-9]+\" || echo 0', {encoding: 'utf8'});
+            
+            const changes = {
+              files: parseInt(files.trim()),
+              lines: parseInt(lines.trim()),
+              complexity: 'medium'
+            };
+            
+            if (!canCreatePR(changes)) {
+              console.error('❌ Rate limiter would reject this PR:', changes);
+              process.exit(1);
+            }
+            
+            console.log('✅ Rate limiter approves:', changes);
+          "
+          
+  # Playground deployment check (if Cloudflare is configured)
+  playground-check:
+    if: contains(github.event.pull_request.body, 'playground') || contains(github.head_ref, 'playground')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🏗️ Setup Node.js & pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      
+      - name: 🎮 Build playground
+        run: pnpm nx build playground
+        
+      - name: 🌩️ Check Cloudflare deployment readiness
+        working-directory: apps/playground
+        run: |
+          if [ -f "wrangler.toml" ]; then
+            echo "✅ Wrangler config found - ready for deployment"
+            # Could add: wrangler pages deploy dist --dry-run
+          else
+            echo "⚠️ No wrangler.toml found"
+          fi
+          
+  # Security and quality gates
+  security-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          
+      - name: 📥 Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: 🔒 Check for ACTUAL secrets
+        run: |
+          # Look for actual patterns, not every mention of "token"
+          if grep -r -E "(sk-[a-zA-Z0-9]{48}|ghp_[a-zA-Z0-9]{36}|npm_[a-zA-Z0-9]{36}|AIza[a-zA-Z0-9]{35}|AKIA[a-zA-Z0-9]{16})" \
+              --include="*.ts" --include="*.js" --include="*.json" \
+              --exclude-dir=node_modules --exclude-dir=.git \
+              --exclude-dir=dist --exclude-dir=.nx .; then
+            echo "❌ Actual secrets found (not just the word 'token')"
+            exit 1
+          fi
+          echo "✅ No real secrets detected (token_usage is safe, calm down)"
+          
+      - name: 📊 Check package vulnerabilities
+        run: |
+          pnpm audit --audit-level=high --prod
+          
+  # Merge queue status update
+  aviator-status:
+    needs: [aviator-check, playground-check, security-check]
+    if: always()  # Run even if some checks fail
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📋 Update Aviator status
+        run: |
+          if [ "${{ needs.aviator-check.result }}" = "success" ] && [ "${{ needs.security-check.result }}" = "success" ]; then
+            echo "✅ All checks passed - ready for Aviator queue"
+            # Could integrate with Aviator API to update status
+          else
+            echo "❌ Some checks failed - blocking merge"
+          fi
+          
+      - name: 📊 Report to Context Beast (if applicable)
+        if: contains(github.event.pull_request.body, 'Context Beast')
+        run: |
+          echo "🤖 Reporting results to Context Beast metrics"
+          # This is where you'd integrate with your metrics collection

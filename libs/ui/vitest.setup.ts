@@ -35,7 +35,6 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
   observe() {
     return null
   }
@@ -49,7 +48,6 @@ global.IntersectionObserver = class IntersectionObserver {
 
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
-  constructor() {}
   observe() {
     return null
   }
@@ -65,9 +63,9 @@ global.ResizeObserver = class ResizeObserver {
 if (typeof window !== 'undefined') {
   // Mock additional browser APIs that might be missing in CI
   window.scrollTo = window.scrollTo || (() => {})
-  window.requestAnimationFrame = window.requestAnimationFrame || ((cb) => setTimeout(cb, 16))
-  window.cancelAnimationFrame = window.cancelAnimationFrame || ((id) => clearTimeout(id))
-  
+  window.requestAnimationFrame = window.requestAnimationFrame || (cb => setTimeout(cb, 16))
+  window.cancelAnimationFrame = window.cancelAnimationFrame || (id => clearTimeout(id))
+
   // Ensure consistent viewport size in CI
   Object.defineProperty(window, 'innerWidth', {
     writable: true,

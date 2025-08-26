@@ -28,6 +28,7 @@ node_modules
 /.sass-cache
 /connect.lock
 /coverage
+**/coverage
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log
@@ -70,3 +71,7 @@ knowledge/personal/
 knowledge/secrets/
 
 storybook-static
+# Ignore untracked Inbox directory
+@_Inbox/
+# Ignore Untitled markdown files
+Untitled*.md
